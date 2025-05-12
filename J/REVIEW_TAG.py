@@ -22,7 +22,7 @@ import pandas as pd
 from google.colab import files
 
 # OpenAI API 키 설정 (본인의 API 키로 변경)
-openai.api_key = "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"
+openai.api_key = ""
 
 # MariaDB 연결 정보 (하드코딩)
 db_host = "bootcampproject2t1steam.cdi60g8ggh0i.ap-southeast-2.rds.amazonaws.com"
