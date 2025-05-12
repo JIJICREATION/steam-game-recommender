@@ -1,0 +1,42 @@
+'''
+수빈님의 코드를 연구하기 위해서 복사했던 파일입니다. 
+'''
+
+import requests
+import json
+
+def fetch_steamdb_data(page=0):
+    url = "https://steamdb.info/api/GetApps/"
+    headers = {
+        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36"
+    }
+    params = {
+        "start": page * 50,
+        "length": 50
+    }
+
+    response = requests.get(url, headers=headers, params=params)
+    
+    if response.status_code == 200:
+        return response.json()
+    else:
+        print(f"Error: {response.status_code}")
+        return None
+
+def display_games(data):
+    if data and 'data' in data:
+        for game in data['data']:
+            print(f"Name: {game['name']}")
+            print(f"App ID: {game['appid']}")
+            print(f"Price: ${game['price'] / 100:.2f}")
+            print("-" * 30)
+
+if __name__ == "__main__":
+    page = 0
+    data = fetch_steamdb_data(page)
+    
+    if data:
+        print(f"Displaying games from page {page + 1}:")
+        display_games(data)
+    else:
+        print("Failed to fetch data from SteamDB.")
